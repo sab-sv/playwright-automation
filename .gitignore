@@ -1,0 +1,14 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Screenshots captured during test runs
+target/screenshots/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
