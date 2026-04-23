@@ -2,20 +2,8 @@ package com.teckro.automation.config
 
 /**
  * Central configuration object that reads runtime properties.
- *
- * Properties can be set in three ways (highest wins):
- *   1. JVM system property  → -Dbrowser=firefox
- *   2. Environment variable → BROWSER=firefox
- *   3. Hard-coded default below
- *
- * Usage:
- *   val browser = Configuration.browser
  */
 object Configuration {
-
-    /** Target browser: chromium | firefox | webkit */
-    val browser: String
-        get() = prop("browser") ?: env("BROWSER") ?: "chromium"
 
     /** Run browser without a visible window */
     val headless: Boolean
@@ -31,7 +19,7 @@ object Configuration {
 
     /** Base URL for the application under test */
     val baseUrl: String
-        get() = prop("baseUrl") ?: env("BASE_URL") ?: "https://madrid.craigslist.org/?lang=en&cc=gb"
+        get() = prop("baseUrl") ?: env("BASE_URL") ?: "https://madrid.craigslist.org"
 
     /** Viewport width */
     val viewportWidth: Int

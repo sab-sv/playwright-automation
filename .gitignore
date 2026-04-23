@@ -12,3 +12,6 @@ target/screenshots/
 
 # OS
 .DS_Store
+
+# allure
+.allure/

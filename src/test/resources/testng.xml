@@ -5,9 +5,8 @@
 
   How to run:
     All tests (default):       ./mvnw test
-    Smoke only:                ./mvnw test -Dgroups=smoke
-    Different browser:         ./mvnw test -Dbrowser=firefox
-    Headless + staging env:    ./mvnw test -Dheadless=true -Denv=staging
+    Housing only:                ./mvnw test -Dgroups=housing
+    Headless + staging env:    ./mvnw test -Dheadless=true
 
   Parallel execution:
     Set parallel="classes" and thread-count="2" to run each test
@@ -15,29 +14,15 @@
 -->
 <suite name="Playwright-Kotlin Automation Suite" verbose="1">
 
-    <!-- ── Smoke tests – fast feedback cycle ────────────────────────────── -->
-    <test name="Smoke Tests" groups="smoke">
+    <!-- ── Housing tests – fast feedback cycle ────────────────────────────── -->
+    <test name="Housing Tests" groups="housing">
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="housing"/>
             </run>
         </groups>
         <classes>
-            <class name="com.teckro.automation.tests.LoginTest"/>
-            <class name="com.teckro.automation.tests.DashboardTest"/>
-        </classes>
-    </test>
-
-    <!-- ── Regression tests – full coverage ─────────────────────────────── -->
-    <test name="Regression Tests" groups="regression">
-        <groups>
-            <run>
-                <include name="regression"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.teckro.automation.tests.LoginTest"/>
-            <class name="com.teckro.automation.tests.DashboardTest"/>
+            <class name="com.teckro.automation.tests.HousingTest"/>
         </classes>
     </test>
 

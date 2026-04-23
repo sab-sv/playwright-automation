@@ -18,8 +18,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Defaults – override on CLI: mvn test -Dbrowser=firefox -Dheadless=true -->
-        <browser>chromium</browser>
         <headless>false</headless>
+        <allure.version>2.27.0</allure.version>
     </properties>
 
     <dependencies>
@@ -50,6 +50,14 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.13</version>
+        </dependency>
+
+        <!-- Allure TestNG integration -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -95,10 +103,20 @@
                         <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemPropertyVariables>
-                        <browser>${browser}</browser>
                         <headless>${headless}</headless>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar"
+                    </argLine>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>1.9.22</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <!-- Playwright browser installer
@@ -115,11 +133,13 @@
                     <execution>
                         <id>playwright-install-browsers</id>
                         <phase>test-compile</phase>
-                        <goals><goal>java</goal></goals>
+                        <goals><goal>exec</goal></goals>
                         <configuration>
-                            <mainClass>com.microsoft.playwright.CLI</mainClass>
-                            <classpathScope>test</classpathScope>
+                            <executable>${java.home}/bin/java</executable>
                             <arguments>
+                                <argument>-classpath</argument>
+                                <classpath/>
+                                <argument>com.microsoft.playwright.CLI</argument>
                                 <argument>install</argument>
                                 <argument>chromium</argument>
                             </arguments>
@@ -133,6 +153,17 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-wrapper-plugin</artifactId>
                 <version>3.3.2</version>
+            </plugin>
+
+            <!-- Allure Maven Plugin – generates HTML report from allure-results -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.12.0</version>
+                <configuration>
+                    <reportVersion>${allure.version}</reportVersion>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
