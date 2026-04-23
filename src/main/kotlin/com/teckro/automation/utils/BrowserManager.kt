@@ -4,19 +4,8 @@ import com.microsoft.playwright.*
 import com.teckro.automation.config.Configuration
 
 /**
- * BrowserManager is responsible for the lifecycle of the Playwright
- * instance, the Browser, and the BrowserContext.
- *
- * It is NOT a singleton – each test class (or thread) should own
- * its own instance so tests can run in parallel safely.
- *
- * Typical usage:
- * ```kotlin
- * val manager = BrowserManager()
- * val page    = manager.newPage()
- * // ... test code ...
- * manager.close()
- * ```
+ * BrowserManager is responsible for the lifecycle of the Playwright browser and context.
+ * It can be further extended to support multiple browser types, parallel contexts, video recording, etc.
  */
 class BrowserManager {
 

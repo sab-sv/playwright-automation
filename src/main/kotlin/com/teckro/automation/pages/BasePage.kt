@@ -5,15 +5,7 @@ import com.microsoft.playwright.Page
 
 /**
  * BasePage is the parent for every Page Object in this project.
- *
- * It holds a reference to the Playwright [Page] and exposes small
- * helpers so that child pages don't have to repeat boilerplate.
- *
- * ## Page Object Model (POM) pattern
- * Each screen / section of the application gets its own class that
- * extends BasePage.  Those classes expose high-level methods that
- * describe *what* to do (e.g. `loginPage.loginAs(user, pass)`) and
- * hide the low-level selector details from the test code.
+ * It can be further enhanced with more shared navigation and interaction methods as needed.
  */
 abstract class BasePage(protected val page: Page) {
 
