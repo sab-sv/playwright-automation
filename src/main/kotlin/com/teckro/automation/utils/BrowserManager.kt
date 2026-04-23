@@ -52,11 +52,7 @@ class BrowserManager {
             .setHeadless(Configuration.headless)
             .setSlowMo(Configuration.slowMo)
 
-        return when (Configuration.browser.lowercase()) {
-            "firefox" -> playwright.firefox().launch(launchOptions)
-            "webkit"  -> playwright.webkit().launch(launchOptions)
-            else      -> playwright.chromium().launch(launchOptions)   // default
-        }
+        return playwright.chromium().launch(launchOptions)
     }
 
     private fun buildContextOptions(): Browser.NewContextOptions =

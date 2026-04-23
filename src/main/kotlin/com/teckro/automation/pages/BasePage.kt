@@ -1,5 +1,6 @@
 package com.teckro.automation.pages
 
+import com.microsoft.playwright.ElementHandle
 import com.microsoft.playwright.Page
 
 /**
@@ -53,4 +54,8 @@ abstract class BasePage(protected val page: Page) {
                 .setState(com.microsoft.playwright.options.WaitForSelectorState.VISIBLE)
         )
     }
+
+    /** Return all [ElementHandle]s matching [selector]. */
+    protected fun getElements(selector: String): List<ElementHandle> =
+        page.querySelectorAll(selector)
 }
